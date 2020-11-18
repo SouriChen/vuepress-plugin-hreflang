@@ -1,0 +1,21 @@
+{
+  "name": "vuepress-plugin-hreflang",
+  "version": "1.0.0",
+  "description": "hreflang plugin for vuepress",
+  "main": "index.js",
+  "publishConfig": {
+    "access": "public"
+  },
+  "keywords": [
+    "hreflang",
+    "vue",
+    "vuepress",
+    "generator"
+  ],
+  "license": "MIT",
+  "dependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": ""
+}
