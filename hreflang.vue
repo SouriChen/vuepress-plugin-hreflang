@@ -9,15 +9,11 @@ export default {
   created() {
     if (typeof this.$ssrContext !== "undefined") {
       if (LANG.length != 0) {
-        for (let index = 0; index < LANG.length; index++) {
-          const hreflang = LANG[index];
-          if (this.$page.path.indexOf(hreflang) == 1) {
-            this.$ssrContext.userHeadTags += `<link rel='alternate' href='${this.computeURL()}' hreflang='${hreflang}'/>`;
-            return;
-          } else {
-            this.$ssrContext.userHeadTags += `<link rel='alternate' href='${this.computeURL()}' hreflang='en'/>`;
-          }
-        }
+        let lang;
+        LANG.map((hreflang) => {
+          lang = this.$page.path.indexOf(hreflang) != -1 ? hreflang : "en";
+        });
+        this.$ssrContext.userHeadTags += `<link rel='alternate' href='${this.computeURL()}' hreflang='${lang}'/>`;
       }
     }
   },
