@@ -10,10 +10,29 @@ export default {
     if (typeof this.$ssrContext !== "undefined") {
       if (LANG.length != 0) {
         let lang;
+        let langUrl = STRIPURL
+          ? this.$page.path.replace(/\.html$/, "")
+          : this.$page.path;
+        let url, path;
+
+        let checkLang = langUrl.substring(1, langUrl.indexOf("/", 1));
+        if (LANG.indexOf(checkLang) !== -1) {
+          path = `${langUrl.substr(langUrl.indexOf("/", 1))}`;
+        } else {
+          path = langUrl;
+        }
+
         LANG.map((hreflang) => {
-          lang = this.$page.path.indexOf(hreflang) != -1 ? hreflang : "en";
+          if (hreflang !== "en") {
+            url = `/${hreflang}${path}`;
+          } else {
+            url = path;
+          }
+
+          this.$ssrContext.userHeadTags += `<link rel='alternate' href='${
+            BASEURL + url
+          }' hreflang='${hreflang}'/>`;
         });
-        this.$ssrContext.userHeadTags += `<link rel='alternate' href='${this.computeURL()}' hreflang='${lang}'/>`;
       }
     }
   },

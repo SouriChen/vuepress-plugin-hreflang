@@ -7,7 +7,7 @@ Add  `<link rel='alternate' href='href' hreflang='lang'...>` to your vuepress si
 ## Install
 
 ```
-npm i vuepress-plugin-hreflang -D
+npm i vuepress-plugin-hreflang -D --registry=http://npm.inner.tranhom.com
 ```
 
 ## Usage
