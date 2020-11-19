@@ -9,6 +9,12 @@ export default {
   created() {
     if (typeof this.$ssrContext !== "undefined") {
       if (LANG.length != 0) {
+        this.computeURL()
+      }
+    }
+  },
+  methods: {
+    computeURL() {
         let lang;
         let langUrl = STRIPURL
           ? this.$page.path.replace(/\.html$/, "")
@@ -33,15 +39,6 @@ export default {
             BASEURL + url
           }' hreflang='${hreflang}'/>`;
         });
-      }
-    }
-  },
-  methods: {
-    computeURL() {
-      let pagePath = STRIPURL
-        ? this.$page.path.replace(/\.html$/, "")
-        : this.$page.path;
-      return BASEURL + pagePath;
     },
   },
 };
