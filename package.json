@@ -1,6 +1,6 @@
 {
   "name": "vuepress-plugin-hreflang",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "hreflang plugin for vuepress",
   "main": "index.js",
   "publishConfig": {
@@ -17,5 +17,5 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": ""
+  "author": "risas"
 }

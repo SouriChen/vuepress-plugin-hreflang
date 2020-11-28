@@ -7,38 +7,49 @@
 
 export default {
   created() {
-    if (typeof this.$ssrContext !== 'undefined') {
-        // md文件头部增加：locales: ['en','ja']
+    if (typeof this.$ssrContext !== "undefined") {
+      // md文件头部增加：locales: ['en','ja']
+      let params = {
+        url: "",
+        lang: [],
+      };
       if (this.$page.frontmatter.locales) {
-        this.computeURL(this.$ssrContext.url)
+        params = {
+          url: this.$ssrContext.url,
+          lang: this.$page.frontmatter.locales,
+        };
       } else {
         if (LANG.length != 0) {
-          this.computeURL(this.$page.path)
+          params = {
+            url: this.$page.path,
+            lang: LANG,
+          };
         }
       }
+      this.computeURL(params);
     }
   },
   methods: {
     computeURL(params) {
-      let url, path, lang
-      let language = LANG
-      let langUrl = STRIPURL ? params.replace(/\.html$/, '') : params
-      let checkLang = langUrl.substring(1, langUrl.indexOf('/', 1))
+      let url, path, lang;
+      let language = params.lang;
+      let langUrl = STRIPURL ? params.url.replace(/\.html$/, "") : params.url;
+      let checkLang = langUrl.substring(1, langUrl.indexOf("/", 1));
       if (language.indexOf(checkLang) !== -1) {
-        path = `${langUrl.substr(langUrl.indexOf('/', 1))}`
+        path = `${langUrl.substr(langUrl.indexOf("/", 1))}`;
       } else {
-        path = langUrl
+        path = langUrl;
       }
 
       language.map((hreflang) => {
-        if (hreflang !== 'en') {
-          url = `/${hreflang}${path}`
+        if (hreflang !== "en") {
+          url = `/${hreflang}${path}`;
         } else {
-          url = path
+          url = path;
         }
         this.$ssrContext.userHeadTags += `<link rel='alternate' href='${BASEURL + url}' hreflang='${hreflang}'/>`
-      })
+      });
     },
   },
-}
+};
 </script>
